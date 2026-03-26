@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Портал - Калькулятор и информация</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-content">
+      <h1 class="header-title">Портал услуг для граждан</h1>
+      <p class="header-subtitle">Система поддержки и трудоустройства</p>
+    </div>
+  </header>
+
+  <nav class="navbar">
+    <button class="nav-btn active" onclick="window.location.href='dop.html'">Главная</button>
+    <button class="nav-btn" data-tab="calculator" onclick="window.location.href='calculator.html'">Калькулятор</button>
+    <button class="nav-btn" data-tab="info" onclick="window.location.href='info.html'">Информация об авторе</button>
+  </nav>
+
+  <main class="container">
+    <section id="calculator" class="tab-content active">
+      <div class="card">
+        <h2>Калькулятор</h2>
+        <div class="photo">
+            <div class="calculator-wrapper rotate">
+            <div id="result" class="result">0</div>
+            <div class="buttons-grid">
+                <div class="button-row">
+                <button id="btn_op_clear" class="my-btn secondary">C</button>
+                <button id="btn_op_sign" class="my-btn secondary">+/-</button>
+                <button id="btn_op_percent" class="my-btn secondary">%</button>
+                <button id="btn_op_div" class="my-btn primary">/</button>
+                </div>
+
+                <div class="button-row">
+                <button id="btn_digit_7" class="my-btn">7</button>
+                <button id="btn_digit_8" class="my-btn">8</button>
+                <button id="btn_digit_9" class="my-btn">9</button>
+                <button id="btn_op_mult" class="my-btn primary">×</button>
+                </div>
+
+                <div class="button-row">
+                <button id="btn_digit_4" class="my-btn">4</button>
+                <button id="btn_digit_5" class="my-btn">5</button>
+                <button id="btn_digit_6" class="my-btn">6</button>
+                <button id="btn_op_minus" class="my-btn primary">−</button>
+                </div>
+
+                <div class="button-row">
+                <button id="btn_digit_1" class="my-btn">1</button>
+                <button id="btn_digit_2" class="my-btn">2</button>
+                <button id="btn_digit_3" class="my-btn">3</button>
+                <button id="btn_op_plus" class="my-btn primary">+</button>
+                </div>
+
+                <div class="button-row">
+                <button id="btn_digit_0" class="my-btn btn-zero">0</button>
+                <button id="btn_digit_dot" class="my-btn">.</button>
+                <button id="btn_op_equal" class="my-btn primary">=</button>
+                </div>
+            </div>
+            </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Портал услуг. Все права защищены.</p>
+  </footer>
+</body>
+</html>

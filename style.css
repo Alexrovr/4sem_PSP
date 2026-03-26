@@ -127,6 +127,7 @@ body {
 .calculator-wrapper {
   max-width: 400px;
   margin: 0 auto;
+  padding: 50px 20px;
 }
 
 .result {
@@ -343,4 +344,17 @@ body {
     height: 60px;
     font-size: 1.5rem;
   }
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+.photo {
+  background-image: url('photo.jpg');
+  background-size: cover;
+  background-position: center;
+  margin: 0 auto;
+  height: 500px;
+  width: 800px;
 }
