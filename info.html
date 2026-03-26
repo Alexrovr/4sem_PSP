@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Портал - Калькулятор и информация</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-content">
+      <h1 class="header-title">Портал услуг для граждан</h1>
+      <p class="header-subtitle">Система поддержки и трудоустройства</p>
+    </div>
+  </header>
+
+  <nav class="navbar">
+    <button class="nav-btn" data-tab="calculator" onclick="window.location.href='calculator.html'">Калькулятор</button>
+    <button class="nav-btn active" data-tab="info" onclick="window.location.href='info.html'">Информация об авторе</button>
+  </nav>
+
+  <main class="container">
+    <section id="info" class="tab-content active">
+      <div class="card">
+        <h2>Информация об авторе</h2>
+        <div class="info-content">
+          <div class="info-item">
+            <label>Имя:</label>
+            <p>Воронков Александр</p>
+          </div>
+          <div class="info-item">
+            <label>Группа:</label>
+            <p>ИУ5-42Б</p>
+          </div>
+          <div class="info-item">
+            <label>GitHub:</label>
+            <p><a href="https://github.com/Alexrovr?tab=repositories" target="_blank" class="github-link">Перейти на профиль GitHub</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Портал услуг. Все права защищены.</p>
+  </footer>
+</body>
+</html>
