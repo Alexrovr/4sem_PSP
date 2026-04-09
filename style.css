@@ -11,7 +11,6 @@ body {
   line-height: 1.6;
 }
 
-/* ===== ШАПКА САЙТА ===== */
 .header {
   background: linear-gradient(135deg, #003d82 0%, #005ab3 100%);
   color: white;
@@ -159,6 +158,30 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
+}
+
+.button-row.first-row {
+  grid-template-columns: 1fr 1fr 1fr auto 1fr 1fr;
+  align-items: stretch;
+}
+
+.vertical-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 100%;
+}
+
+.vertical-btns .my-btn {
+  flex: 1;
+  min-height: 0;
+  padding: 8px 6px;
+  font-size: 0.95rem;
+}
+
+.small-btn {
+  padding: 8px 6px;
+  font-size: 0.95rem;
 }
 
 .button-row:last-child {

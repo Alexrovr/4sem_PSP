@@ -3,6 +3,8 @@ window.onload = function() {
     let b = '';
     let expressionResult = '';
     let selectedOperation = null;
+    let lowerLimit = null;
+    let upperLimit = null;
 
     const outputElement = document.getElementById('result');
     const digitButtons = document.querySelectorAll('[id ^= "btn_digit_"]');
@@ -13,6 +15,11 @@ window.onload = function() {
     const minusButton = document.getElementById('btn_op_minus');
     const divButton = document.getElementById('btn_op_div');
     const signButton = document.getElementById('btn_op_sign');
+    const percentButton = document.getElementById('btn_op_percent');
+    const integralButton = document.getElementById('btn_op_integral');
+    const varAButton = document.getElementById('btn_var_a');
+    const varBButton = document.getElementById('btn_var_b');
+
 
     function onDigitButtonClicked(digit) {
         if (!selectedOperation) {
@@ -44,11 +51,60 @@ window.onload = function() {
 
     signButton.onclick = function() {
         if (selectedOperation) {
-            b *= -1;
+            if (b !== '' && b !== '0') {
+                b *= -1;
+                outputElement.innerHTML = b;
+            }
         } else {
-            a *= -1;
+            if (a !== '' && a !== '0') {
+                a *= -1;
+                outputElement.innerHTML = a;
+            }
         }
+    }
+
+    varAButton.onclick = function() {
+        upperLimit = a;
+        a = '0';
         outputElement.innerHTML = a;
+    };
+
+    varBButton.onclick = function() {
+        lowerLimit = a;
+        a = '0';
+        outputElement.innerHTML = a;
+    };
+
+
+    integralButton.onclick = function() {
+        if (lowerLimit !== null && upperLimit !== null) {
+            const numLower = parseFloat(lowerLimit);
+            const numUpper = parseFloat(upperLimit);
+            if (!isNaN(numLower) && !isNaN(numUpper)) {
+                const result = (numUpper ** 2 - numLower ** 2) / 2;
+                a = result.toString();
+                b = '';
+                selectedOperation = null;
+                outputElement.innerHTML = a;
+            } else {
+                outputElement.innerHTML = 'Ошибка ввода';
+                a = '0';
+                b = '';
+                selectedOperation = null;
+            }
+        }
+    }
+
+    percentButton.onclick = function() {
+        if (selectedOperation) {
+            const numA = parseFloat(a);
+            const numB = parseFloat(b);
+            b = (numA * numB / 100).toString();
+            outputElement.innerHTML = b;
+        } else {
+            a = (parseFloat(a) / 100).toString();
+            outputElement.innerHTML = a;
+        }
     }
 
     multButton.onclick = function() {
@@ -62,11 +118,20 @@ window.onload = function() {
     };
 
     minusButton.onclick = function() {
-        if (a === '0') {
-            a = '-';
-            outputElement.innerHTML = a;
+        if (!selectedOperation) {
+            if (a === '0') {
+                a = '-';
+                outputElement.innerHTML = a;
+            } else {
+                selectedOperation = '−';
+            }
         } else {
-            selectedOperation = '−';
+            if (b === '') {
+                b = '-';
+                outputElement.innerHTML = b;
+            } else {
+                selectedOperation = '−';
+            }
         }
     };
 
