@@ -12,6 +12,7 @@ window.onload = function() {
     const plusButton = document.getElementById('btn_op_plus');
     const minusButton = document.getElementById('btn_op_minus');
     const divButton = document.getElementById('btn_op_div');
+    const signButton = document.getElementById('btn_op_sign');
 
     function onDigitButtonClicked(digit) {
         if (!selectedOperation) {
@@ -41,6 +42,15 @@ window.onload = function() {
         };
     });
 
+    signButton.onclick = function() {
+        if (selectedOperation) {
+            b *= -1;
+        } else {
+            a *= -1;
+        }
+        outputElement.innerHTML = a;
+    }
+
     multButton.onclick = function() {
         if (a === '') return;
         selectedOperation = '×';
@@ -52,8 +62,12 @@ window.onload = function() {
     };
 
     minusButton.onclick = function() {
-        if (a === '') return;
-        selectedOperation = '−';
+        if (a === '0') {
+            a = '-';
+            outputElement.innerHTML = a;
+        } else {
+            selectedOperation = '−';
+        }
     };
 
     divButton.onclick = function() {
