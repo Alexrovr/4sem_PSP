@@ -1,5 +1,6 @@
 import {BackButtonComponent} from "../../components/back-button/index.js";
 import {MainPage} from "../main/index.js";
+import {ProductComponent} from "../../components/product/index.js";
 
 export class ProductPage {
     constructor(parent, data) {
@@ -8,15 +9,19 @@ export class ProductPage {
     }
 
     render() {
-        this.parent.innerHTML = `
-            <div class="card p-4">
-                <h2>${this.data.name} (${this.data.ticker})</h2>
-                <p class="lead">${this.data.desc}</p>
-                <p>Текущая котировка: <b>${this.data.price}</b></p>
-                <div id="back-btn-container"></div>
-            </div>`;
+        this.parent.innerHTML = '';
 
-        const backBtn = new BackButtonComponent(document.getElementById('back-btn-container'));
-        backBtn.render(() => new MainPage(this.parent).render());
+        const html = '<div id="product-page" class="container mt-4"></div>';
+        this.parent.insertAdjacentHTML('beforeend', html);
+        const pageRoot = document.getElementById('product-page');
+
+        const product = new ProductComponent(pageRoot);
+        product.render(this.data);
+
+        const backBtn = new BackButtonComponent(pageRoot);
+        backBtn.render(() => {
+            const mainPage = new MainPage(this.parent);
+            mainPage.render();
+        });
     }
 }
