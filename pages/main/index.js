@@ -1,38 +1,3 @@
-// import {ProductCardComponent} from "../../components/product-card/index.js";
-// import {ProductPage} from "../product/index.js";
-// import {ToastComponent} from "../../components/toast/index.js";
-
-// export class MainPage {
-//     constructor(parent) {
-//         this.parent = parent;
-//     }
-
-//     getData() {
-//         return [
-//             {id: 1, ticker: "AAPL", name: "Apple Inc.", price: "$180", desc: "Технологический гигант"},
-//             {id: 2, ticker: "TSLA", name: "Tesla", price: "$240", desc: "Электромобили и энергия"},
-//             {id: 3, ticker: "BTC", name: "Bitcoin", price: "$65,000", desc: "Цифровое золото"}
-//         ];
-//     }
-
-//     render() {
-//         this.parent.innerHTML = '<div id="main-page" class="d-flex flex-wrap"></div>';
-//         const container = document.getElementById('main-page');
-
-//         this.getData().forEach(item => {
-//             const card = new ProductCardComponent(container);
-//             card.render(item, () => {
-//                 const toast = new ToastComponent(document.getElementById('toast-container'));
-//                 toast.render("Переход", `Открываем акции ${item.ticker}`);
-
-//                 const productPage = new ProductPage(this.parent, item);
-//                 productPage.render();
-//             });
-//         });
-//     }
-// }
-
-
 import {ProductCardComponent} from "../../components/product-card/index.js";
 import {ProductPage} from "../product/index.js";
 import {ToastComponent} from "../../components/toast/index.js";
@@ -52,7 +17,8 @@ export class MainPage {
                 location: "Москва",
                 category: "IT",
                 date: "Сегодня",
-                tags: ["Удаленно", "Полный день", "ДМС"],
+                tags: ["Удаленно", "Полный день"],
+                img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80", // Код
                 desc: "Разработка пользовательских интерфейсов для крупных государственных систем."
             },
             {
@@ -63,7 +29,8 @@ export class MainPage {
                 location: "Санкт-Петербург",
                 category: "Аналитика",
                 date: "Вчера",
-                tags: ["Гибкий график", "Обучение", "Стажировка"],
+                tags: ["Гибкий график", "Стажировка"],
+                img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&q=80", // Графики
                 desc: "Работа с базами данных SQL и построение дашбордов в BI-системах."
             },
             {
@@ -75,6 +42,7 @@ export class MainPage {
                 category: "Производство",
                 date: "2 дня назад",
                 tags: ["Релокация", "Опыт от 3 лет"],
+                img: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&q=80", // Инженерия
                 desc: "Проектирование и наладка автоматизированных систем управления производством."
             }
         ];
