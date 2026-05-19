@@ -126,6 +126,7 @@ import {ProductPage} from "../product/index.js";
 import {ToastComponent} from "../../components/toast/index.js";
 import { ajax } from "../../modules/ajax.js";
 import { stockUrls } from "../../modules/stockUrls.js";
+import { CreatePage } from "../create/index.js"; // Добавь этот импорт к остальным
 
 export class MainPage {
     constructor(parent) {
@@ -234,6 +235,7 @@ export class MainPage {
                     <div class="gap-2">
                         <button class="btn btn-success me-2" id="add-btn">+ Добавить</button>
                         <button class="btn btn-danger" id="delete-btn">- Удалить</button>
+                        <button class="btn btn-primary" id="create-btn">Создать</button>
                     </div>
                 </div>
                 <div id="main-page" class="d-flex flex-wrap justify-content-center"></div>
@@ -241,6 +243,10 @@ export class MainPage {
         `;
 
         document.getElementById('add-btn').addEventListener('click', () => this.addRandomCard());
+        document.getElementById('create-btn').addEventListener('click', () => {
+            const createPage = new CreatePage(this.parent);
+            createPage.render();
+        });
         document.getElementById('delete-btn').addEventListener('click', () => this.deleteRandomCard());
 
         // Запускаем асинхронную загрузку данных
