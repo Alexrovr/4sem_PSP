@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { IDBManager } from './idb.js';
 
-// Предустановленные статические модели (включая парные)
 const presetModels = [
     { id: 'p1', name: 'Машина', files: ['./models/car.glb'] },
     { id: 'p2', name: 'Дерево 1', files: ['./models/tree1.glb'] },
@@ -36,13 +35,10 @@ class GalleryApp {
     async renderGallery() {
         this.grid.innerHTML = '';
 
-        // Отрендерить предустановленные
         presetModels.forEach(model => this.createCard(model));
 
-        // Отрендерить загруженные из IndexedDB
         const userModels = await IDBManager.getAllModels();
         userModels.forEach(model => {
-            // Создаем временную URL ссылку на Blob объект для GLTFLoader
             const fileUrl = URL.createObjectURL(model.blob);
             this.createCard({ id: `u_${model.id}`, name: model.name, files: [fileUrl] });
         });
@@ -62,19 +58,28 @@ class GalleryApp {
         card.appendChild(title);
         this.grid.appendChild(card);
 
-        // Клик переводит на страницу деталей
-        card.addEventListener('click', (e) => {
-            if (e.target.tagName !== 'BUTTON') {
-                window.location.href = `detail.html?id=${modelData.id}`;
-            }
-        });
+        const currentId = modelData.id;
 
-        // Запуск Single Frame рендеринга для карточки
-        this.renderPreview(previewContainer, modelData.files, modelData.isPair);
+        card.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (!currentId) {
+                console.error("Критическая ошибка: у модели отсутствует ID!", modelData);
+                return;
+            }
+
+            localStorage.setItem('selectedModelId', currentId);
+
+            window.location.href = 'detail.html';
+        });
+        requestAnimationFrame(() => {
+            this.renderPreview(previewContainer, modelData.files, modelData.isPair);
+        });
     }
 
     renderPreview(container, fileUrls, isPair = false) {
-        const width = container.clientWidth || 220;
+        const width = container.clientWidth || 250;
         const height = 180;
 
         const scene = new THREE.Scene();
@@ -103,7 +108,6 @@ class GalleryApp {
             this.loader.load(url, (gltf) => {
                 const model = gltf.scene;
 
-                // Если это парная модель — делаем отступ для второго объекта
                 if (isPair && index === 1) {
                     model.position.x = 2.0;
                 }
@@ -111,13 +115,14 @@ class GalleryApp {
                 group.add(model);
                 loadedCount++;
 
-                // Когда все файлы для этой карточки загружены — центрируем камеру и делаем Single Frame рендер
                 if (loadedCount === fileUrls.length) {
                     this.centerAndRender(group, camera, renderer, scene);
                 }
             }, undefined, (err) => {
                 console.error("Ошибка загрузки миниатюры:", err);
-                container.innerHTML = '<div class="error-icon">🧩</div>';
+                if (!container.querySelector('.error-icon')) {
+                    container.innerHTML = '<div class="error-icon">🧩</div>';
+                }
             });
         });
     }
@@ -127,19 +132,18 @@ class GalleryApp {
         const center = box.getCenter(new THREE.Vector3());
         const size = box.getSize(new THREE.Vector3());
 
-        // Центрирование по виртуальному полу (на уровень Y = 0)
         group.position.y -= box.min.y;
         group.position.x -= center.x;
         group.position.z -= center.z;
 
         const maxDim = Math.max(size.x, size.y, size.z);
-        camera.position.set(maxDim * 1.5, maxDim * 1.2, maxDim * 1.5);
+        const cameraDist = maxDim > 0 ? maxDim * 1.8 : 5;
+
+        camera.position.set(cameraDist, cameraDist * 0.8, cameraDist);
         camera.lookAt(0, maxDim / 2, 0);
 
-        // Single Frame рендеринг — рендерим только один раз! Контролы отсутствуют.
         renderer.render(scene, camera);
 
-        // Очищаем WebGL контекст из активной памяти анимаций
         renderer.dispose();
     }
 }
