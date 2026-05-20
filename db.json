@@ -58,6 +58,20 @@
       ],
       "img": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80",
       "id": "a_GBDrnxOWY"
+    },
+    {
+      "title": "вакансия1",
+      "company": "Работа всем",
+      "salary": "20000",
+      "location": "Москва",
+      "category": "IT",
+      "desc": "хорошая вакансия",
+      "date": "Сегодня",
+      "tags": [
+        "Полный день"
+      ],
+      "img": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80",
+      "id": "23zkS6VgD8E"
     }
   ]
 }
