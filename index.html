@@ -1,0 +1,47 @@
+<!-- <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Трудоустройство для инвалидов</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div id="root" class="container mt-4"></div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container"></div>
+
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="./main.js"></script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D GLB Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/examples/jsm/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+</head>
+<body>
+    <header class="header">
+        <h1>3D Модели Галерея</h1>
+        <form id="upload-form" class="upload-form">
+            <input type="file" id="file-input" accept=".glb" required>
+            <button type="submit" class="btn btn-success">Загрузить GLB</button>
+        </form>
+    </header>
+
+    <main class="container">
+        <div id="gallery-grid" class="gallery-grid"></div>
+    </main>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
