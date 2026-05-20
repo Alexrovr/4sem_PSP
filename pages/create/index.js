@@ -8,11 +8,9 @@ export class CreatePage {
         this.parent = parent;
     }
 
-    // Метод сбора данных из формы и отправки их на сервер
     createStock(e) {
-        e.preventDefault(); // Отменяем перезагрузку страницы при отправке формы
+        e.preventDefault();
 
-        // Собираем значения из полей ввода
         const title = document.getElementById('vacancy-title').value;
         const company = document.getElementById('vacancy-company').value;
         const salary = document.getElementById('vacancy-salary').value;
@@ -21,10 +19,8 @@ export class CreatePage {
         const desc = document.getElementById('vacancy-desc').value;
         const tagsInput = document.getElementById('vacancy-tags').value;
 
-        // Превращаем строку с тегами через запятую в массив строк
         const tags = tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
 
-        // Формируем объект для отправки (id сервер json-server присвоит автоматически)
         const newVacancy = {
             title,
             company,
@@ -34,18 +30,15 @@ export class CreatePage {
             desc,
             date: "Сегодня",
             tags,
-            img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80" // Дефолтная картинка кода
+            img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80"
         };
 
-        // Выполняем POST-запрос к API
         ajax.post(stockUrls.createStock(), newVacancy, (data, status) => {
             const toast = new ToastComponent(document.getElementById('toast-container'));
 
-            // json-server при успешном создании возвращает статус 201 Created
             if (status === 201 || data) {
                 toast.render("Успех", `Вакансия "${title}" успешно создана!`);
 
-                // Перенаправляем пользователя обратно на главную страницу
                 const mainPage = new MainPage(this.parent);
                 mainPage.render();
             } else {
@@ -98,13 +91,11 @@ export class CreatePage {
             </div>
         `;
 
-        // Слушатель на кнопку "Назад"
         document.getElementById('back-to-main-btn').addEventListener('click', () => {
             const mainPage = new MainPage(this.parent);
             mainPage.render();
         });
 
-        // Слушатель на отправку формы
         document.getElementById('create-vacancy-form').addEventListener('submit', (e) => this.createStock(e));
     }
 }
