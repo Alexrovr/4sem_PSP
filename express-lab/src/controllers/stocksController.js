@@ -6,15 +6,21 @@ const getAllStocks = (req, res) => {
     res.json(stocks);
 };
 
-const getStockById = (req, res) => {
-    const id = parseInt(req.params.id);
-    const stock = stocksService.findOne(id);
+const getStockByText = (req, res) => {
+    const searchQuery = req.params.search;
 
-    if (!stock) {
-        return res.status(404).json({ error: 'Карточка не найдена' });
+    if (!searchQuery) {
+        return res.status(400).json({ error: 'Поисковый запрос не указан' });
     }
 
-    res.json(stock);
+    // Вызываем метод, который сейчас добавим в сервис
+    const stocks = stocksService.findByText(searchQuery);
+
+    if (!stocks || stocks.length === 0) {
+        return res.status(404).json({ error: 'Карточки не найдены' });
+    }
+
+    res.json(stocks);
 };
 
 const createStock = (req, res) => {
@@ -51,10 +57,28 @@ const deleteStock = (req, res) => {
     res.status(204).send(); // 204 No Content
 };
 
+const checkStockHead = (req, res) => {
+    const id = parseInt(req.params.id);
+    const stock = stocksService.findOne(id);
+
+    if (!stock) {
+        return res.sendStatus(404);
+    }
+
+    const responseData = JSON.stringify(stock);
+
+    res.status(200)
+       .set('Content-Type', 'application/json')
+       .set('Content-Length', Buffer.byteLength(responseData))
+       .set('ETag', `"${require('crypto').createHash('md5').update(responseData).digest('hex')}"`)
+       .end();
+};
+
 module.exports = {
     getAllStocks,
-    getStockById,
+    getStockByText,
     createStock,
     updateStock,
-    deleteStock
+    deleteStock,
+    checkStockHead
 };

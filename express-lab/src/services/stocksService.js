@@ -62,4 +62,14 @@ const remove = (id) => {
     return true;
 };
 
-module.exports = { init, findAll, findOne, create, update, remove };
+const findByText = (searchQuery) => {
+    const stocks = fileService.readData(dataFilePath);
+    if (!searchQuery) return stocks;
+
+    return stocks.filter(stock =>
+        (stock.text && stock.text.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (stock.title && stock.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+};
+
+module.exports = { init, findAll, findOne, create, update, remove, findByText };
