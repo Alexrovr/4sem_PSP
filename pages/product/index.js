@@ -5,17 +5,24 @@ import { api } from "../../modules/api.js";
 import { stockUrls } from "../../modules/stockUrls.js";
 
 export class ProductPage {
-    constructor(parent, id) {
+    constructor(parent, params) {
         this.parent = parent;
-        this.id = id;
+        this.id = params ? params.id : null;
     }
 
     async getData() {
+        if (!this.id) {
+            console.error("ID вакансии не найден в параметрах роутера!");
+            return;
+        }
+
         const data = await api.get(stockUrls.getStockById(this.id));
         if (data) {
             const pageRoot = document.getElementById('product-page');
             const product = new ProductComponent(pageRoot);
             product.render(data);
+        } else {
+            console.error(`Не удалось загрузить данные для вакансии с id: ${this.id}`);
         }
     }
 
@@ -28,8 +35,7 @@ export class ProductPage {
 
         const backBtn = new BackButtonComponent(pageRoot);
         backBtn.render(() => {
-            const mainPage = new MainPage(this.parent);
-            mainPage.render();
+            window.router.navigate('/');
         });
 
         this.getData();

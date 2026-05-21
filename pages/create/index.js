@@ -33,8 +33,7 @@ export class CreatePage {
 
         if (response.status === 201 || response.data) {
             toast.render("Успех", `Вакансия "${title}" успешно создана через fetch!`);
-            const mainPage = new MainPage(this.parent);
-            mainPage.render();
+            window.router.navigate('/');
         } else {
             toast.render("Ошибка", "Не удалось сохранить вакансию");
         }
@@ -85,8 +84,7 @@ export class CreatePage {
         `;
 
         document.getElementById('back-to-main-btn').addEventListener('click', () => {
-            const mainPage = new MainPage(this.parent);
-            mainPage.render();
+            window.router.navigate('/');
         });
 
         document.getElementById('create-vacancy-form').addEventListener('submit', (e) => this.createStock(e));
