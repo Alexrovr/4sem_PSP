@@ -39,8 +39,7 @@ export class CreatePage {
             if (status === 201 || data) {
                 toast.render("Успех", `Вакансия "${title}" успешно создана!`);
 
-                const mainPage = new MainPage(this.parent);
-                mainPage.render();
+                window.router.navigate('/');
             } else {
                 toast.render("Ошибка", "Не удалось сохранить вакансию на сервере");
             }
@@ -92,8 +91,7 @@ export class CreatePage {
         `;
 
         document.getElementById('back-to-main-btn').addEventListener('click', () => {
-            const mainPage = new MainPage(this.parent);
-            mainPage.render();
+            window.router.navigate('/');
         });
 
         document.getElementById('create-vacancy-form').addEventListener('submit', (e) => this.createStock(e));

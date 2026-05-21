@@ -4,6 +4,7 @@ import {ToastComponent} from "../../components/toast/index.js";
 import { ajax } from "../../modules/ajax.js";
 import { stockUrls } from "../../modules/stockUrls.js";
 import { CreatePage } from "../create/index.js";
+import { Router } from "../../modules/router.js";
 
 export class MainPage {
     constructor(parent) {
@@ -94,8 +95,7 @@ export class MainPage {
             const toast = new ToastComponent(document.getElementById('toast-container'));
             toast.render("Просмотр", `Загрузка вакансии: ${item.title}`);
 
-            const productPage = new ProductPage(this.parent, item.id);
-            productPage.render();
+            window.router.navigate(`/vacancy/${item.id}`);
         });
     }
 
@@ -116,8 +116,7 @@ export class MainPage {
 
         document.getElementById('add-btn').addEventListener('click', () => this.addRandomCard());
         document.getElementById('create-btn').addEventListener('click', () => {
-            const createPage = new CreatePage(this.parent);
-            createPage.render();
+            window.router.navigate('/create');
         });
         document.getElementById('delete-btn').addEventListener('click', () => this.deleteRandomCard());
 

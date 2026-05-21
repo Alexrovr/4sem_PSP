@@ -46,6 +46,7 @@
       "desc": "Проектирование и наладка автоматизированных систем управления производством."
     },
     {
+      "id": "4",
       "title": "Уборщик",
       "company": "ООО чистота",
       "salary": "50000",
@@ -56,8 +57,36 @@
       "tags": [
         "Удаленно"
       ],
-      "img": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80",
-      "id": "a_GBDrnxOWY"
+      "img": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80"
+    },
+    {
+      "id": "5",
+      "title": "вакансия1",
+      "company": "Работа всем",
+      "salary": "20000",
+      "location": "Москва",
+      "category": "IT",
+      "desc": "пнфы8щнеиы",
+      "date": "Сегодня",
+      "tags": [
+        "Полный день"
+      ],
+      "img": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80"
+    },
+    {
+      "id": "6",
+      "title": "fgdg",
+      "company": "ffg",
+      "salary": "100",
+      "location": "ioi",
+      "category": "kl",
+      "desc": "yfo7fr8",
+      "date": "Сегодня",
+      "tags": [
+        "hj"
+      ],
+      "img": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

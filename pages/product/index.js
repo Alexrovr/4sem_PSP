@@ -5,9 +5,9 @@ import { ajax } from "../../modules/ajax.js";
 import { stockUrls } from "../../modules/stockUrls.js";
 
 export class ProductPage {
-    constructor(parent, id) {
+    constructor(parent, params) {
         this.parent = parent;
-        this.id = id;
+        this.id = params ? params.id : null;
     }
 
     getData() {
@@ -30,8 +30,7 @@ export class ProductPage {
 
         const backBtn = new BackButtonComponent(pageRoot);
         backBtn.render(() => {
-            const mainPage = new MainPage(this.parent);
-            mainPage.render();
+            window.router.navigate('/');
         });
 
         this.getData();
