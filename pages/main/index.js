@@ -15,18 +15,42 @@ export class MainPage {
     }
 
     async getData() {
-        const data = await api.get(stockUrls.getStocks());
+        const container = document.getElementById('main-page');
 
-        if (data) {
-            this.allData = data;
-            this.initializeVisibleCards();
-            this.allData.forEach(item => {
-                this.renderCard(item);
-            });
-        } else {
+        try {
+            const data = await api.get(stockUrls.getStocks());
+
+            if (data && Array.from(data).length > 0) {
+                this.allData = data;
+                this.initializeVisibleCards();
+                this.allData.forEach(item => {
+                    this.renderCard(item);
+                });
+            } else {
+                this.renderError(container, "Список вакансий пуст.");
+            }
+        } catch (error) {
+            console.error("Сетевая ошибка на главной странице:", error);
+            this.renderError(container, "Не удалось подключиться к серверу. Убедитесь, что бэкенд-сервер запущен и доступен (например, json-server).");
+
             const toast = new ToastComponent(document.getElementById('toast-container'));
-            toast.render("Ошибка", "Не удалось загрузить данные через fetch");
+            toast.render("Ошибка сети", "Сервер не отвечает");
         }
+    }
+
+    renderError(container, message) {
+        if (!container) return;
+        container.innerHTML = `
+            <div class="alert alert-danger w-100 mt-3 p-4 shadow-sm" role="alert">
+                <div class="d-flex align-items-center gap-3">
+                    <span class="fs-2">⚠️</span>
+                    <div>
+                        <h4 class="alert-heading mb-1">Ошибка получения данных</h4>
+                        <p class="mb-0 text-secondary">${message}</p>
+                    </div>
+                </div>
+            </div>
+        `;
     }
 
     initializeVisibleCards() {

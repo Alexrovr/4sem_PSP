@@ -11,19 +11,41 @@ export class ProductPage {
     }
 
     async getData() {
+        const pageRoot = document.getElementById('product-page');
+
         if (!this.id) {
-            console.error("ID вакансии не найден в параметрах роутера!");
+            this.renderError(pageRoot, "Некорректный идентификатор вакансии в URL.");
             return;
         }
 
-        const data = await api.get(stockUrls.getStockById(this.id));
-        if (data) {
-            const pageRoot = document.getElementById('product-page');
-            const product = new ProductComponent(pageRoot);
-            product.render(data);
-        } else {
-            console.error(`Не удалось загрузить данные для вакансии с id: ${this.id}`);
+        try {
+            const data = await api.get(stockUrls.getStockById(this.id));
+
+            if (data && Object.keys(data).length > 0) {
+                const product = new ProductComponent(pageRoot);
+                product.render(data);
+            } else {
+                this.renderError(pageRoot, "Не удалось загрузить данные вакансии. Убедитесь, что бэкенд-сервер запущен и возвращает данные.");
+            }
+        } catch (error) {
+            console.error("Сетевая ошибка в ProductPage:", error);
+            this.renderError(pageRoot, "Ошибка соединения. Не удалось связаться с бэкенд-сервером.");
         }
+    }
+
+    renderError(container, message) {
+        if (!container) return;
+        container.innerHTML = `
+            <div class="alert alert-danger mt-4 p-4 shadow-sm" role="alert">
+                <div class="d-flex align-items-center gap-3">
+                    <span class="fs-3">⚠️</span>
+                    <div>
+                        <h4 class="alert-heading mb-1">Ошибка загрузки</h4>
+                        <p class="mb-0 text-secondary">${message}</p>
+                    </div>
+                </div>
+            </div>
+        `;
     }
 
     render() {
